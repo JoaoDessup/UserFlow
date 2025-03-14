@@ -1,0 +1,21 @@
+# Ignorar arquivos e pastas sensíveis/desnecessários
+
+# Ambiente
+backend/.env
+
+# Banco de dados local
+backend/database.db
+
+# Node Modules
+backend/node_modules/
+
+# Lock file
+backend/package-lock.json
+
+# IDEs e configurações locais
+.vscode/
+.idea/
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
