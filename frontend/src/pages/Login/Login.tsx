@@ -4,10 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '../../validations/loginSchema';
 import { z } from 'zod';
 import { loginUser } from '../../services/authService';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 type LoginData = z.infer<typeof loginSchema>;
 
 const Login: React.FC = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -19,10 +24,10 @@ const Login: React.FC = () => {
   const onSubmit = async (data: LoginData) => {
     try {
       const response = await loginUser(data);
-      console.log('Login efetuado:', response.data);
-      alert('Login realizado com sucesso!');
+      const token = response.data.token;
+      login(token);
+      navigate('/home');
     } catch (error: any) {
-      console.error(error);
       alert('Erro ao fazer login');
     }
   };
