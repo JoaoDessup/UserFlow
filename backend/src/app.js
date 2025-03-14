@@ -1,12 +1,18 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import { createUserTable } from './controllers/userController.js';
 
 dotenv.config();
 const app = express();
 app.use(express.json());
+
+// Habilitar CORS
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 
 // Rate limit
 const limiter = rateLimit({
