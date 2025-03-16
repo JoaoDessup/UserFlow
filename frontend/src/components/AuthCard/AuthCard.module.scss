@@ -1,0 +1,30 @@
+@use '../../styles/variables' as *;
+
+.background {
+    height: 100vh;
+    width: 100%;
+    background-color: $color-background;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 400px;
+    height: 320px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(83, 107, 120, 0.15);
+    padding: 15px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+
+    h1 {
+        width: 100%;
+        text-align: center;
+        color: $color-secondary;
+    }
+
+}

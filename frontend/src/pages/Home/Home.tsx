@@ -7,8 +7,9 @@ export const Home = () => {
 
     const handleLogout = () => {
         logout();
-        navigate('/');
+        navigate('/login');
     };
+    
     return (
         <div >
             <h2>Home</h2>

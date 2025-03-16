@@ -1,11 +1,16 @@
 import React from 'react';
+import styles from './Login.module.scss';
+
+import { loginSchema } from '../../validations/loginSchema';
+import { loginUser } from '../../services/authService';
+import { useAuth } from '../../context/AuthContext';
+
+import AuthCard from '../../components/AuthCard/AuthCard';
+
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { loginSchema } from '../../validations/loginSchema';
 import { z } from 'zod';
-import { loginUser } from '../../services/authService';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 
 type LoginData = z.infer<typeof loginSchema>;
 
@@ -26,25 +31,33 @@ const Login: React.FC = () => {
       const response = await loginUser(data);
       const token = response.data.token;
       login(token);
-      navigate('/home');
+      navigate('/');
     } catch (error: any) {
       alert('Erro ao fazer login');
     }
   };
 
   return (
-    <div>
-      <h2>Loginn</h2>
+    <AuthCard title='Login'>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="email" {...register('email')} placeholder="Email" />
-        {errors.email && <p>{errors.email.message}</p>}
-
-        <input type="password" {...register('password')} placeholder="Senha" />
-        {errors.password && <p>{errors.password.message}</p>}
-
+        <div className={styles.iptForm}>
+          <input type="email" {...register('email')} placeholder="Email" />
+          <div className={styles.iptError}>
+            {errors.email && <p>{errors.email.message}</p>}
+          </div>
+        </div>
+        <div className={styles.iptForm}>
+          <input type="password" {...register('password')} placeholder="Senha" />
+          <div className={styles.iptError}>
+          {errors.password && <p>{errors.password.message}</p>}
+          </div>
+          <p className={styles.forgot}>Esqueceu a senha?</p>
+        </div>
         <button type="submit">Entrar</button>
       </form>
-    </div>
+      <p className={styles.register}>Não possui conta? <a onClick={() => navigate('/register')}>Clique aqui.</a></p> 
+    </AuthCard>
+
   );
 };
 
